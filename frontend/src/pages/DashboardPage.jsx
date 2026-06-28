@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react"
-import initialTasks from "../data/tasks"
 import Header from "../components/Header"
 import Sidebar from "../components/Sidebar"
 import WelcomeCard from "../components/WelcomeCard"
@@ -14,18 +13,20 @@ import "../styles/dashboard.css"
 
 
 function DashboardPage() {
-    const [tasks, setTasks] = useState(() => {
-      const savedTasks = localStorage.getItem("tasks")
+    const [tasks, setTasks] = useState([])
 
-      if (savedTasks) {
-        return JSON.parse(savedTasks)
-      }
-      return initialTasks
-    })
     const [taskTitle, setTaskTitle] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
     const [filter, setFilter] = useState("all")
     const { darkMode, setDarkMode } = useContext(ThemeContext)
+
+    useEffect(() => {
+      fetch("http://localhost:5000/tasks")
+        .then((response) => response.json())
+        .then((data) => {
+          setTasks(data)
+        })
+    }, [])
 
     useEffect(() => {
       localStorage.setItem(
