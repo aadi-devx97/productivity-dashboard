@@ -28,13 +28,6 @@ function DashboardPage() {
         })
     }, [])
 
-    useEffect(() => {
-      localStorage.setItem(
-        "tasks",
-        JSON.stringify(tasks)
-      )
-    }, [tasks])
-
     const filteredTasks = tasks.filter((task) => {
         const matchesSearch =
           task.title.toLowerCase().includes(
@@ -57,38 +50,69 @@ function DashboardPage() {
         (task) => !task.completed
       ).length
 
-    function addTask() {
+    async function addTask() {
       if (taskTitle.trim() === "") {
         return
       }
 
-      const newTask = {
-        id: Date.now(),
-        title: taskTitle,
-        completed: false,
-      }
+      const response = await fetch(
+        "http://localhost:5000/tasks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title:taskTitle
+          }),
+        }
+      )
+
+      const newTask = await response.json()
+
       setTasks([...tasks, newTask])
       setTaskTitle("")
     }
 
-    function toggleTask(id) {
+    async function toggleTask(id) {
+      const task = tasks.find((task) => task.id === id)
+
+      const response = await fetch(
+        `http://localhost:5000/tasks/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            completed: !task.completed,
+          }),
+        }
+      )
+
+      const updatedTask = await response.json()
       const updatedTasks = tasks.map((task) => {
         if (task.id === id) {
-          return {
-            ...task,
-            completed: !task.completed,
-          }
+          return updatedTask
         }
+
         return task
       })
       setTasks(updatedTasks)
     }
 
-    function deleteTask(id) {
-        const updateTasks = tasks.filter(
-            (task) => task.id !== id
-        )
-        setTasks(updateTasks)
+    async function deleteTask(id) {
+      await fetch(
+        `http://localhost:5000/tasks/${id}`,
+        {
+          method: "DELETE",
+        }
+      )
+
+      const updatedTasks = tasks.filter(
+        (task) => task.id !== id
+      )
+      setTasks(updatedTasks)
     }
     
     return (
