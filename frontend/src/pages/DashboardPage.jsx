@@ -9,6 +9,7 @@ import ThemeContext from "../context/ThemeContext"
 import CalendarCard from "../components/CalendarCard"
 import MissionSection from "../components/MissionSection"
 import SettingsCard from "../components/SettingsCard"
+import BASE_URL from "../config/api"
 import "../styles/dashboard.css"
 
 
@@ -21,7 +22,7 @@ function DashboardPage() {
     const { darkMode, setDarkMode } = useContext(ThemeContext)
 
     useEffect(() => {
-      fetch("http://localhost:5000/tasks")
+      fetch(`${BASE_URL}/tasks`)
         .then((response) => response.json())
         .then((data) => {
           setTasks(data)
@@ -56,7 +57,7 @@ function DashboardPage() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/tasks",
+        `${BASE_URL}/tasks`,
         {
           method: "POST",
           headers: {
@@ -78,7 +79,7 @@ function DashboardPage() {
       const task = tasks.find((task) => task.id === id)
 
       const response = await fetch(
-        `http://localhost:5000/tasks/${id}`,
+        `${BASE_URL}/tasks/${id}`,
         {
           method: "PUT",
           headers: {
@@ -103,7 +104,7 @@ function DashboardPage() {
 
     async function deleteTask(id) {
       await fetch(
-        `http://localhost:5000/tasks/${id}`,
+        `${BASE_URL}/tasks/${id}`,
         {
           method: "DELETE",
         }
