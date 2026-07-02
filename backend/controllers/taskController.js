@@ -1,7 +1,16 @@
-const tasks = require("../data/tasks")
+const Task = require("../models/Task")
 
-function getTasks(req, res) {
-    res.json(tasks);
+async function getTasks(req, res) {
+  try {
+    const tasks = await Task.find()
+
+    res.json(tasks)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      message: "Failed to fetch tasks",
+    })
+  }
 }
 
 function createTask(req, res) {
