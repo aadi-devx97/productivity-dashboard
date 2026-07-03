@@ -76,7 +76,7 @@ function DashboardPage() {
     }
 
     async function toggleTask(id) {
-      const task = tasks.find((task) => task.id === id)
+      const task = tasks.find((task) => task._id === id)
 
       const response = await fetch(
         `${BASE_URL}/tasks/${id}`,
@@ -93,7 +93,7 @@ function DashboardPage() {
 
       const updatedTask = await response.json()
       const updatedTasks = tasks.map((task) => {
-        if (task.id === id) {
+        if (task._id === id) {
           return updatedTask
         }
 
@@ -111,7 +111,7 @@ function DashboardPage() {
       )
 
       const updatedTasks = tasks.filter(
-        (task) => task.id !== id
+        (task) => task._id !== id
       )
       setTasks(updatedTasks)
     }

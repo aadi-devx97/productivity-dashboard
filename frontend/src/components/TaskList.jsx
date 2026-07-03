@@ -5,7 +5,7 @@ function TaskList({ tasks, toggleTask, deleteTask }) {
         <ul className="task-list">
             {tasks.map((task) => (
                 <TaskItem
-                  key={task.id}
+                  key={task._id}
                   task={task}
                   toggleTask={toggleTask}
                     deleteTask={deleteTask}

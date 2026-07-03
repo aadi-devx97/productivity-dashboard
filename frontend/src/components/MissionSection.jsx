@@ -30,7 +30,7 @@ function MissionSection({ tasks }) {
       </p>
 
       {pendingTasks.map((task) => (
-        <p key={task.id}>
+        <p key={task._id}>
           {task.completed ? "✅" : "⬜"} {task.title}
         </p>
       ))}

@@ -13,53 +13,68 @@ async function getTasks(req, res) {
   }
 }
 
-function createTask(req, res) {
-    const newTask = {
-        id: tasks.length + 1,
-        title: req.body.title,
-        completed: false,
-    };
+async function createTask(req, res) {
+  try {
+    const { title } = req.body
 
-    tasks.push(newTask);
-    res.status(201).json(newTask);
-};
+    const task = await Task.create({
+      title,
+    })
 
-function updateTask(req, res) {
-    const taskId =  Number(req.params.id);
+    res.status(201).json(task)
+  } catch (error) {
+    console.error(error)
 
-    const task = tasks.find((task) => task.id === taskId);
-
-    if(!task) {
-      return res.status(404).json({
-        message: "Task not found",
-      });
-    }
-
-    task.title = req.body.title ?? task.title;
-
-    if (req.body.completed !== undefined) {
-      task.completed = req.body.completed;
-    }
-
-    res.json(task);
+    res.status(500).json({
+      message: "Failed to create task",
+    })
+  }
 }
 
-function deleteTask(req, res) {
-    const taskId = Number(req.params.id);
+async function updateTask(req, res) {
+  try {
+    const task = await Task.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    )
 
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
-    if (taskIndex === -1) {
+    if (!task) {
       return res.status(404).json({
         message: "Task not found",
-      });
+      })
     }
 
-    tasks.splice(taskIndex, 1);
+    res.json(task)
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      message: "Failed to update task",
+    })
+  }
+}
+
+async function deleteTask(req, res) {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id)
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found",
+      })
+    }
 
     res.json({
       message: "Task deleted successfully",
-    });
+    })
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      message: "Failed to delete task",
+    })
+  }
 }
 
 module.exports = {
