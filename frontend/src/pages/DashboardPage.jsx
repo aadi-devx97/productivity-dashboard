@@ -22,11 +22,20 @@ function DashboardPage() {
     const { darkMode, setDarkMode } = useContext(ThemeContext)
 
     useEffect(() => {
-      fetch(`${BASE_URL}/tasks`)
-        .then((response) => response.json())
-        .then((data) => {
-          setTasks(data)
+      async function fetchTasks() {
+        const token = localStorage.getItem("token")
+
+        const response = await fetch(`${BASE_URL}/tasks`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
+
+        const data = await response.json()
+        setTasks(data)
+      }
+
+      fetchTasks()
     }, [])
 
     const filteredTasks = tasks.filter((task) => {
@@ -56,12 +65,15 @@ function DashboardPage() {
         return
       }
 
+      const token = localStorage.getItem("token")
+
       const response = await fetch(
         `${BASE_URL}/tasks`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             title:taskTitle
@@ -77,6 +89,7 @@ function DashboardPage() {
 
     async function toggleTask(id) {
       const task = tasks.find((task) => task._id === id)
+      const token = localStorage.getItem("token")
 
       const response = await fetch(
         `${BASE_URL}/tasks/${id}`,
@@ -84,6 +97,7 @@ function DashboardPage() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             completed: !task.completed,
@@ -103,10 +117,14 @@ function DashboardPage() {
     }
 
     async function deleteTask(id) {
+      const token = localStorage.getItem("token")
       await fetch(
         `${BASE_URL}/tasks/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
 
