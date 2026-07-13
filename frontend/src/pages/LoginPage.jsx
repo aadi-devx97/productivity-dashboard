@@ -34,6 +34,10 @@ function LoginPage() {
         navigate("/")
     }
 
+    function goToSignup() {
+        navigate("/signup")
+    }
+
     return (
         <div>
             <h1>Login your Account</h1>
@@ -55,6 +59,13 @@ function LoginPage() {
                 <button type="submit">
                     Log in
                 </button>
+
+                <p>
+                    Don't have an account?
+                    <button type="button" onClick={goToSignup}>
+                        Sign up
+                    </button>
+                </p>
             </form>
         </div>
     )

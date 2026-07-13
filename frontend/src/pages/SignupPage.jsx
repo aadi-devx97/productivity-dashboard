@@ -1,10 +1,12 @@
 import BASE_URL from "../config/api"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function SignupPage() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -30,6 +32,10 @@ function SignupPage() {
 
         alert("Signup successful! Please log in.")
         console.log(data)
+    }
+
+    function goToLogin() {
+        navigate("/login")
     }
 
     return (
@@ -61,6 +67,13 @@ function SignupPage() {
                 <button type="submit">
                     Sign Up
                 </button>
+
+                <p>
+                    Already have an account?
+                    <button type="button" onClick={goToLogin}>
+                        Log in
+                    </button>
+                </p>
             </form>
         </div>
     )
