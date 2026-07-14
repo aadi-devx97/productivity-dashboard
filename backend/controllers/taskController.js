@@ -36,7 +36,7 @@ async function createTask(req, res) {
 
 async function updateTask(req, res) {
   try {
-    const task = await Task.findByIdAndUpdate(
+    const task = await Task.findOneAndUpdate(
       {
         _id: req.params.id,
         user: req.user.userId,

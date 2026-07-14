@@ -1,4 +1,4 @@
-function WelcomeCard({ pendingTasksCount }) {
+function WelcomeCard({ pendingTasksCount, user }) {
     const hour = new Date().getHours()
 
     let greeting = ""
@@ -12,7 +12,7 @@ function WelcomeCard({ pendingTasksCount }) {
     }
     return (
         <section className="card">
-            <h2>{greeting}</h2>
+            <h2>{greeting}, {user?.name}!</h2>
             <p>You have {pendingTasksCount} pending missions(s) today.</p>
         </section>
     )

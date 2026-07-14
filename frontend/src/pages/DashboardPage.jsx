@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
 import Sidebar from "../components/Sidebar"
 import WelcomeCard from "../components/WelcomeCard"
@@ -19,7 +20,9 @@ function DashboardPage() {
     const [taskTitle, setTaskTitle] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
     const [filter, setFilter] = useState("all")
+    const [user, setUser] = useState(null)
     const { darkMode, setDarkMode } = useContext(ThemeContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
       async function fetchTasks() {
@@ -31,8 +34,24 @@ function DashboardPage() {
           },
         })
 
+        if (response.status === 401) {
+          localStorage.removeItem("token")
+          navigate("/login")
+          return
+        }
+
         const data = await response.json()
         setTasks(data)
+
+        const userResponse = await fetch(`${BASE_URL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        const userData = await userResponse.json()
+        setUser(userData)
+        console.log(userData)
       }
 
       fetchTasks()
@@ -81,6 +100,12 @@ function DashboardPage() {
         }
       )
 
+      if (response.status === 401) {
+        localStorage.removeItem("token")
+        navigate("/login")
+        return
+      }
+
       const newTask = await response.json()
 
       setTasks([...tasks, newTask])
@@ -99,11 +124,18 @@ function DashboardPage() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+
           body: JSON.stringify({
             completed: !task.completed,
           }),
         }
       )
+
+      if (response.status === 401) {
+        localStorage.removeItem("token")
+        navigate("/login")
+        return
+      }
 
       const updatedTask = await response.json()
       const updatedTasks = tasks.map((task) => {
@@ -128,6 +160,12 @@ function DashboardPage() {
         }
       )
 
+      if (response.status === 401) {
+        localStorage.removeItem("token")
+        navigate("/login")
+        return
+      }
+
       const updatedTasks = tasks.filter(
         (task) => task._id !== id
       )
@@ -150,6 +188,7 @@ function DashboardPage() {
                 <main className="dashboard-content">
                     <WelcomeCard
                         pendingTasksCount={pendingTasksCount}
+                        user={user}
                     />
 
                     <div className="dashboard-grid">
