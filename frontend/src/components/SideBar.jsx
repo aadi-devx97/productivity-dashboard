@@ -1,4 +1,4 @@
-function SideBar() {
+function SideBar( { activePage, setActivePage } ) {
     return (
         <aside className="sidebar">
             <h3>Navigation</h3>

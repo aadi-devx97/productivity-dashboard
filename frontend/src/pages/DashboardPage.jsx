@@ -21,6 +21,7 @@ function DashboardPage() {
     const [searchTerm, setSearchTerm] = useState("")
     const [filter, setFilter] = useState("all")
     const [user, setUser] = useState(null)
+    const [activePage, setActivePage] = useState("dashboard")
     const { darkMode, setDarkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
 
@@ -183,7 +184,7 @@ function DashboardPage() {
             <Header />
 
             <div className="dashboard-layout">
-                <Sidebar />
+                <Sidebar activePage={activePage} setActivePage={setActivePage} />
 
                 <main className="dashboard-content">
                     <WelcomeCard
