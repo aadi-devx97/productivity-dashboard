@@ -151,7 +151,7 @@ function DashboardPage() {
 
     async function deleteTask(id) {
       const token = localStorage.getItem("token")
-      await fetch(
+      const response = await fetch(
         `${BASE_URL}/tasks/${id}`,
         {
           method: "DELETE",
@@ -185,76 +185,89 @@ function DashboardPage() {
 
             <div className="dashboard-layout">
                 <Sidebar activePage={activePage} setActivePage={setActivePage} />
+                <p>Current Page: {activePage}</p>
 
                 <main className="dashboard-content">
-                    <WelcomeCard
-                        pendingTasksCount={pendingTasksCount}
-                        user={user}
-                    />
+                  {activePage === "dashboard" && (
+                    <>
+                      <WelcomeCard
+                          pendingTasksCount={pendingTasksCount}
+                          user={user}
+                      />
 
-                    <div className="dashboard-grid">
-                      <CalendarCard />
-                      <SettingsCard />
-                    </div>
+                      <div className="dashboard-grid">
+                        <CalendarCard />
+                        <SettingsCard />
+                      </div>
 
-                    <div className="dashboard-grid">
-                      <MissionSection tasks={tasks} />
-                      <StatsSection tasks={tasks} />
-                    </div>
+                      <div className="dashboard-grid">
+                        <MissionSection tasks={tasks} />
+                        <StatsSection tasks={tasks} />
+                      </div>
 
-                    <div className="controls">
+                      <div className="controls">
 
-                        <button
-                            onClick={() => setDarkMode(!darkMode)}
-                        >
-                            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
-                        </button>
+                          <button
+                              onClick={() => setDarkMode(!darkMode)}
+                          >
+                              {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                          </button>
 
-                        <input
-                            type="text"
-                            value={taskTitle}
-                            onChange={(e) => setTaskTitle(e.target.value)}
-                            placeholder="Enter task"
-                        />
-                        <button onClick={addTask}>
-                            Add Task
-                        </button>
+                          <input
+                              type="text"
+                              value={taskTitle}
+                              onChange={(e) => setTaskTitle(e.target.value)}
+                              placeholder="Enter task"
+                          />
+                          <button onClick={addTask}>
+                              Add Task
+                          </button>
 
-                        <input
-                            type="text"
-                            placeholder="Search tasks..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
+                          <input
+                              type="text"
+                              placeholder="Search tasks..."
+                              value={searchTerm}
+                              onChange={(e) => setSearchTerm(e.target.value)}
+                          />
+                      </div>
 
-                    <div className="filters">
-                        <button onClick={() => setFilter("all")}>{filter === "all" ? "👉 All" : "All"}</button>
+                      <div className="filters">
+                          <button onClick={() => setFilter("all")}>{filter === "all" ? "👉 All" : "All"}</button>
 
-                        <button onClick={() => setFilter("completed")}
-                        >
-                            {filter === "completed" ? "👉 Completed" : "Completed"}
-                        </button>
+                          <button onClick={() => setFilter("completed")}
+                          >
+                              {filter === "completed" ? "👉 Completed" : "Completed"}
+                          </button>
 
-                        <button onClick={() => setFilter("pending")}
-                        >
-                            {filter === "pending" ? "👉 Pending" : "Pending"}
-                        </button>
-                    </div>
+                          <button onClick={() => setFilter("pending")}
+                          >
+                              {filter === "pending" ? "👉 Pending" : "Pending"}
+                          </button>
+                      </div>
 
-                    <p>Showing {filteredTasks.length} task(s)</p>
+                      <p>Showing {filteredTasks.length} task(s)</p>
 
-                    {
-                        filteredTasks.length === 0 && (
-                            <p>No tasks found.</p>
-                        )
-                    }
+                      {
+                          filteredTasks.length === 0 && (
+                              <p>No tasks found.</p>
+                          )
+                      }
 
-                    <TaskList
-                        tasks={filteredTasks}
-                        toggleTask={toggleTask}
-                        deleteTask={deleteTask}
-                    />
+                      <TaskList
+                          tasks={filteredTasks}
+                          toggleTask={toggleTask}
+                          deleteTask={deleteTask}
+                      />
+                    </>
+                  )}
+
+                  {activePage === "tasks" &&(
+                    <h2>📋 Tasks Page</h2>
+                  )}
+
+                  {activePage === "settings" && (
+                    <h2>⚙️ Settings Page</h2>
+                  )}
                 </main>
             </div>
         </div>

@@ -3,9 +3,15 @@ function SideBar( { activePage, setActivePage } ) {
         <aside className="sidebar">
             <h3>Navigation</h3>
             <ul>
-                <li>🏠 Dashboard</li>
-                <li>✅ Tasks</li>
-                <li>⚙️ Settings</li>
+                <li onClick={() => setActivePage("dashboard")}>
+                    🏠 Dashboard
+                </li>
+                <li onClick={() => setActivePage("tasks")}>
+                    ✅ Tasks
+                </li>
+                <li onClick={() => setActivePage("settings")}>
+                    ⚙️ Settings
+                </li>
             </ul>
         </aside>
     )
