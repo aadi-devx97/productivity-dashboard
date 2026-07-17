@@ -11,6 +11,9 @@ import CalendarCard from "../components/CalendarCard"
 import MissionSection from "../components/MissionSection"
 import SettingsCard from "../components/SettingsCard"
 import BASE_URL from "../config/api"
+import TasksPage from "./TasksPage"
+import SettingsPage from "./SettingsPage"
+import DashboardHome from "./DashboardHome"
 import "../styles/dashboard.css"
 
 
@@ -262,11 +265,11 @@ function DashboardPage() {
                   )}
 
                   {activePage === "tasks" &&(
-                    <h2>📋 Tasks Page</h2>
+                    <TasksPage />
                   )}
 
                   {activePage === "settings" && (
-                    <h2>⚙️ Settings Page</h2>
+                    <SettingsPage />
                   )}
                 </main>
             </div>
