@@ -14,6 +14,8 @@ import BASE_URL from "../config/api"
 import TasksPage from "./TasksPage"
 import SettingsPage from "./SettingsPage"
 import DashboardHome from "./DashboardHome"
+import DashboardControls from "../components/DashboardControls"
+import DashboardFilters from "../components/DashboardFilters"
 import "../styles/dashboard.css"
 
 
@@ -208,45 +210,20 @@ function DashboardPage() {
                         <StatsSection tasks={tasks} />
                       </div>
 
-                      <div className="controls">
+                      <DashboardControls
+                        darkMode={darkMode}
+                        setDarkMode={setDarkMode}
+                        taskTitle={taskTitle}
+                        setTaskTitle={setTaskTitle}
+                        addTask={addTask}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm} 
+                      />
 
-                          <button
-                              onClick={() => setDarkMode(!darkMode)}
-                          >
-                              {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
-                          </button>
-
-                          <input
-                              type="text"
-                              value={taskTitle}
-                              onChange={(e) => setTaskTitle(e.target.value)}
-                              placeholder="Enter task"
-                          />
-                          <button onClick={addTask}>
-                              Add Task
-                          </button>
-
-                          <input
-                              type="text"
-                              placeholder="Search tasks..."
-                              value={searchTerm}
-                              onChange={(e) => setSearchTerm(e.target.value)}
-                          />
-                      </div>
-
-                      <div className="filters">
-                          <button onClick={() => setFilter("all")}>{filter === "all" ? "👉 All" : "All"}</button>
-
-                          <button onClick={() => setFilter("completed")}
-                          >
-                              {filter === "completed" ? "👉 Completed" : "Completed"}
-                          </button>
-
-                          <button onClick={() => setFilter("pending")}
-                          >
-                              {filter === "pending" ? "👉 Pending" : "Pending"}
-                          </button>
-                      </div>
+                      <DashboardFilters
+                        filter={filter}
+                        setFilter={setFilter} 
+                      />
 
                       <p>Showing {filteredTasks.length} task(s)</p>
 
