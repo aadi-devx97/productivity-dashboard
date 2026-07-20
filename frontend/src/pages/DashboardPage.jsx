@@ -16,6 +16,7 @@ import SettingsPage from "./SettingsPage"
 import DashboardHome from "./DashboardHome"
 import DashboardControls from "../components/DashboardControls"
 import DashboardFilters from "../components/DashboardFilters"
+import TaskSection from "../components/TaskSection"
 import "../styles/dashboard.css"
 
 
@@ -225,18 +226,10 @@ function DashboardPage() {
                         setFilter={setFilter} 
                       />
 
-                      <p>Showing {filteredTasks.length} task(s)</p>
-
-                      {
-                          filteredTasks.length === 0 && (
-                              <p>No tasks found.</p>
-                          )
-                      }
-
-                      <TaskList
-                          tasks={filteredTasks}
-                          toggleTask={toggleTask}
-                          deleteTask={deleteTask}
+                      <TaskSection
+                        filteredTasks={filteredTasks}
+                        toggleTask={toggleTask}
+                        deleteTask={deleteTask} 
                       />
                     </>
                   )}
