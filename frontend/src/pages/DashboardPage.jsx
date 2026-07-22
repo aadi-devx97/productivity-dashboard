@@ -196,40 +196,22 @@ function DashboardPage() {
                 <main className="dashboard-content">
                   {activePage === "dashboard" && (
                     <>
-                      <WelcomeCard
-                          pendingTasksCount={pendingTasksCount}
-                          user={user}
-                      />
-
-                      <div className="dashboard-grid">
-                        <CalendarCard />
-                        <SettingsCard />
-                      </div>
-
-                      <div className="dashboard-grid">
-                        <MissionSection tasks={tasks} />
-                        <StatsSection tasks={tasks} />
-                      </div>
-
-                      <DashboardControls
+                      <DashboardHome
+                        pendingTasksCount={pendingTasksCount}
+                        user={user}
+                        tasks={tasks}
                         darkMode={darkMode}
                         setDarkMode={setDarkMode}
                         taskTitle={taskTitle}
                         setTaskTitle={setTaskTitle}
                         addTask={addTask}
                         searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm} 
-                      />
-
-                      <DashboardFilters
+                        setSearchTerm={setSearchTerm}
                         filter={filter}
-                        setFilter={setFilter} 
-                      />
-
-                      <TaskSection
+                        setFilter={setFilter}
                         filteredTasks={filteredTasks}
                         toggleTask={toggleTask}
-                        deleteTask={deleteTask} 
+                        deleteTask={deleteTask}
                       />
                     </>
                   )}
