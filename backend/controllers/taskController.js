@@ -86,9 +86,28 @@ async function deleteTask(req, res) {
   }
 }
 
+async function resetTasks(req, res) {
+  try {
+    const userId = req.user.userId
+
+    await Task.deleteMany({ user: userId })
+
+    res.json({
+      message: "All tasks reset successfully",
+    })
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to reset tasks",
+    });
+  }
+}
+
 module.exports = {
     getTasks,
     createTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    resetTasks
 }

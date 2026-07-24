@@ -31,36 +31,37 @@ function DashboardPage() {
     const { darkMode, setDarkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
 
-    useEffect(() => {
-      async function fetchTasks() {
-        const token = localStorage.getItem("token")
+    
+    async function fetchTasks() {
+      const token = localStorage.getItem("token")
 
-        const response = await fetch(`${BASE_URL}/tasks`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      const response = await fetch(`${BASE_URL}/tasks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
 
-        if (response.status === 401) {
-          localStorage.removeItem("token")
-          navigate("/login")
-          return
-        }
-
-        const data = await response.json()
-        setTasks(data)
-
-        const userResponse = await fetch(`${BASE_URL}/api/auth/me`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-
-        const userData = await userResponse.json()
-        setUser(userData)
-        console.log(userData)
+      if (response.status === 401) {
+        localStorage.removeItem("token")
+        navigate("/login")
+        return
       }
 
+      const data = await response.json()
+      setTasks(data)
+
+      const userResponse = await fetch(`${BASE_URL}/api/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      const userData = await userResponse.json()
+      setUser(userData)
+      console.log(userData)
+    }
+
+    useEffect(() => {
       fetchTasks()
     }, [])
 
@@ -217,11 +218,25 @@ function DashboardPage() {
                   )}
 
                   {activePage === "tasks" &&(
-                    <TasksPage />
+                    <TasksPage
+                      filteredTasks={filteredTasks}
+                      toggleTask={toggleTask}
+                      deleteTask={deleteTask}
+                      searchTerm={searchTerm}
+                      setSearchTerm={setSearchTerm}
+                      filter={filter}
+                      setFilter={setFilter}
+                      taskTitle={taskTitle}
+                      setTaskTitle={setTaskTitle}
+                      addTask={addTask}
+                    />
                   )}
 
                   {activePage === "settings" && (
-                    <SettingsPage />
+                    <SettingsPage
+                      user={user}
+                      fetchTasks={fetchTasks}
+                    />
                   )}
                 </main>
             </div>

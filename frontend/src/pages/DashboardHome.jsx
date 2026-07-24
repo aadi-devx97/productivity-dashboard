@@ -1,8 +1,13 @@
 import DashboardControls from "../components/DashboardControls";
 import DashboardFilters from "../components/DashboardFilters";
+import WelcomeCard from "../components/WelcomeCard";
 import TaskSection from "../components/TaskSection";
+import MissionSection from "../components/MissionSection";
+import StatsSection from "../components/StatsSection";
+import CalendarCard from "../components/CalendarCard";
+import SettingsCard from "../components/SettingsCard";  
 
-function DashboardHome(
+function DashboardHome({
     pendingTasksCount,
     user,
     tasks,
@@ -13,7 +18,7 @@ function DashboardHome(
     filter,
     setFilter, filteredTasks,
     toggleTask, deleteTask
-) {
+}) {
     return (
         <>
         <WelcomeCard
