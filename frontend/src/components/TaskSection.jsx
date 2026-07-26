@@ -3,7 +3,8 @@ import TaskList from "./TaskList"
 function TaskSection({
     filteredTasks,
     toggleTask,
-    deleteTask
+    deleteTask,
+    editTask
 }) {
     return (
         <>
@@ -19,6 +20,7 @@ function TaskSection({
             tasks={filteredTasks}
             toggleTask={toggleTask}
             deleteTask={deleteTask}
+            editTask={editTask}
         />
         </>
     );

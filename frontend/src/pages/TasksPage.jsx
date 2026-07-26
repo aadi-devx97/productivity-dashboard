@@ -6,7 +6,8 @@ function TasksPage({
     filteredTasks, toggleTask, deleteTask,
     taskTitle, setTaskTitle, addTask,
     searchTerm, setSearchTerm,
-    filter, setFilter
+    filter, setFilter,
+    editTask
 }) {
     return (
         <div>
@@ -26,6 +27,7 @@ function TasksPage({
                 filteredTasks={filteredTasks}
                 toggleTask={toggleTask}
                 deleteTask={deleteTask}
+                editTask={editTask}
             />
         </div>
     );

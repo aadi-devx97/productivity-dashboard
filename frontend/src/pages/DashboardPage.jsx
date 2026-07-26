@@ -179,6 +179,30 @@ function DashboardPage() {
       )
       setTasks(updatedTasks)
     }
+
+    const editTask = async (taskId, newTitle) => {
+      const token = localStorage.getItem("token")
+      try {
+        await fetch(`http://localhost:5000/tasks/${taskId}`, {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify({
+            title: newTitle,
+          }),
+        })
+
+        fetchTasks()
+
+    } catch (error) {
+      console.error("Error editing task:", error)
+    }
+
+    }
     
     return (
         <div
@@ -222,6 +246,7 @@ function DashboardPage() {
                       filteredTasks={filteredTasks}
                       toggleTask={toggleTask}
                       deleteTask={deleteTask}
+                      editTask={editTask}
                       searchTerm={searchTerm}
                       setSearchTerm={setSearchTerm}
                       filter={filter}
