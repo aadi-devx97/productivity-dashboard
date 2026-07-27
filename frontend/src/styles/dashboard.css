@@ -58,34 +58,6 @@
   background-color: #f4f6f8;
 }
 
-.dark {
-  background-color: #1e1e1e;
-  color: white;
-}
-
-.card {
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  background-color: white;
-}
-
-.card {
-  transition: transform 0.2s ease,
-  box-shadow 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.dark .card {
-  background-color: #2d2d2d;
-  border-color: #444;
-}
-
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -119,89 +91,6 @@
 .stats-card p {
   font-size: 24px;
   font-weight: bold;
-}
-
-.task-list {
-  list-style: none;
-  padding: 0;
-}
-
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 15px;
-  margin-bottom: 10px;
-
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
-
-.dark .task-item {
-  background: #2d2d2d;
-  border-color: #444;
-}
-
-.task-title {
-  cursor: pointer;
-}
-
-.delete-btn {
-  background: crimson;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.controls input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.controls button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.filters button {
-  padding: 8px 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  background: white;
-  cursor: pointer;
-}
-
-.dark .filters button {
-  background: #2d2d2d;
-  color: white;
-  border-color: #444;
-}
-
-button {
-  transition: all 0.2 ease;
-}
-
-button:hover {
-  transform:translateY(-2px);
 }
 
 .header {

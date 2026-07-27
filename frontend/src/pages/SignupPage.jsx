@@ -1,6 +1,8 @@
 import BASE_URL from "../config/api"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import "../styles/global.css"
+import "../styles/auth.css"
 
 function SignupPage() {
     const [name, setName] = useState("")

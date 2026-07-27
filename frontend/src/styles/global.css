@@ -1,0 +1,35 @@
+.dark {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.card {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.card {
+  transition: transform 0.2s ease,
+  box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.dark .card {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+button {
+  transition: all 0.2 ease;
+}
+
+button:hover {
+  transform:translateY(-2px);
+}

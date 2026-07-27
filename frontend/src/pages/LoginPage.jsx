@@ -1,6 +1,8 @@
 import BASE_URL from "../config/api"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import "../styles/global.css"
+import "../styles/auth.css"
 
 function LoginPage() {
     const [email, setEmail] = useState("")
@@ -39,30 +41,30 @@ function LoginPage() {
     }
 
     return (
-        <div>
+        <div className="auth-container">
             <h1>Login your Account</h1>
 
-            <form onSubmit={handleSubmit}>
-                <input
+            <form className="auth-form" onSubmit={handleSubmit}>
+                <input className="auth-input"
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input
+                <input className="auth-input"
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button type="submit">
+                <button className="auth-button" type="submit">
                     Log in
                 </button>
 
                 <p>
                     Don't have an account?
-                    <button type="button" onClick={goToSignup}>
+                    <button className="auth-link" type="button" onClick={goToSignup}>
                         Sign up
                     </button>
                 </p>

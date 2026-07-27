@@ -18,6 +18,9 @@ import DashboardControls from "../components/DashboardControls"
 import DashboardFilters from "../components/DashboardFilters"
 import TaskSection from "../components/TaskSection"
 import "../styles/dashboard.css"
+import "../styles/global.css"
+import "../styles/tasks.css"
+import "../styles/settings.css"
 
 
 function DashboardPage() {
