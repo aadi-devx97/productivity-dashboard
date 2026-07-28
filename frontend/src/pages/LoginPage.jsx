@@ -42,9 +42,10 @@ function LoginPage() {
 
     return (
         <div className="auth-container">
-            <h1>Login your Account</h1>
 
             <form className="auth-form" onSubmit={handleSubmit}>
+                <h1>Login your Account</h1>
+                
                 <input className="auth-input"
                     type="email"
                     placeholder="Email"

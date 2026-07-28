@@ -17,6 +17,7 @@ export function ThemeProvider({ children }) {
       "darkMode",
       JSON.stringify(darkMode)
     )
+    document.body.classList.toggle("dark", darkMode)
   }, [darkMode])
 
   return (

@@ -41,38 +41,39 @@ function SignupPage() {
     }
 
     return (
-        <div>
-            <h1>Create Account</h1>
+        <div className="auth-container">
 
-            <form onSubmit={handleSubmit}>
-                <input
+            <form className="auth-form" onSubmit={handleSubmit}>
+                <h1>Create Account</h1>
+                
+                <input className="auth-input"
                     type="text"
                     placeholder="Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
 
-                <input
+                <input className="auth-input"
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <input
+                <input className="auth-input"
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button type="submit">
+                <button className="auth-button" type="submit">
                     Sign Up
                 </button>
 
-                <p>
+                <p className="auth-text">
                     Already have an account?
-                    <button type="button" onClick={goToLogin}>
+                    <button className="auth-link" type="button" onClick={goToLogin}>
                         Log in
                     </button>
                 </p>

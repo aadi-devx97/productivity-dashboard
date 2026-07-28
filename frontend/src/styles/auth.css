@@ -3,6 +3,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: #e5e7eb;
+    padding: 20px;
+}
+
+.auth-form h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    color: #1f2937;
 }
 
 .auth-form {
@@ -10,24 +20,118 @@
     flex-direction: column;
     gap: 15px;
     width: 350px;
+
+    background: white;
+    padding: 45px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .auth-input {
-    padding: 12px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.auth-input:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.15);
+}
+
+.auth-input::placeholder {
+    color: #9ca3af;
 }
 
 .auth-button {
     padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #111827;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.auth-button:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
+}
+
+.auth-button:active {
+    transform: translateY(0);
 }
 
 .auth-text {
     text-align: center;
+    color: #6b7280;
+    font-size: 0.95rem;
 }
 
 .auth-link {
-    margin-left: 5px;
     background: none;
     border: none;
+    color: #111827;
+    font-weight: 600;
     cursor: pointer;
+    padding: 0;
+    margin-left: 5px;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: #374151;
+    text-decoration: underline;
+}
+
+.dark .auth-container {
+    background-color: #111827;
+}
+
+.dark .auth-form {
+    background-color: #1f2937;
+}
+
+.dark .auth-form h1 {
+    color: white;
+}
+
+.dark .auth-input {
+    background-color: #374151;
+    color: white;
+    border-color: #4b5563;
+}
+
+.dark .auth-input::placeholder {
+    color: #9ca3af;
+}
+
+.dark .auth-input:focus {
+    border-color: white;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+.dark .auth-text {
+    color: #d1d5db;
+}
+
+.dark .auth-link {
+    color: white;
+}
+
+.dark .auth-link:hover {
+    color: #e5e7eb;
+}
+
+.dark .auth-button {
+    background-color: white;
+    color: #111827;
+}
+
+.dark .auth-button:hover {
+    background-color: #f3f4f6;
 }
