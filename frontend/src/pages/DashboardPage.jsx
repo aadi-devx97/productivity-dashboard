@@ -219,7 +219,6 @@ function DashboardPage() {
 
             <div className="dashboard-layout">
                 <Sidebar activePage={activePage} setActivePage={setActivePage} />
-                <p>Current Page: {activePage}</p>
 
                 <main className="dashboard-content">
                   {activePage === "dashboard" && (
@@ -240,6 +239,7 @@ function DashboardPage() {
                         filteredTasks={filteredTasks}
                         toggleTask={toggleTask}
                         deleteTask={deleteTask}
+                        setActivePage={setActivePage}
                       />
                     </>
                   )}

@@ -6,18 +6,14 @@ import MissionSection from "../components/MissionSection";
 import StatsSection from "../components/StatsSection";
 import CalendarCard from "../components/CalendarCard";
 import SettingsCard from "../components/SettingsCard";  
+import FocusTasks from "../components/FocusTasks";
 
 function DashboardHome({
     pendingTasksCount,
     user,
     tasks,
     darkMode, setDarkMode,
-    taskTitle, setTaskTitle,
-    addTask,
-    searchTerm, setSearchTerm,
-    filter,
-    setFilter, filteredTasks,
-    toggleTask, deleteTask
+    setActivePage
 }) {
     return (
         <>
@@ -31,31 +27,13 @@ function DashboardHome({
             <SettingsCard />
         </div>
 
-        <div className="dashboard-grid">
+        <div className="dashboard-grid mission-layout">
             <MissionSection tasks={tasks} />
             <StatsSection tasks={tasks} />
         </div>
 
-        <DashboardControls
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
-            taskTitle={taskTitle}
-            setTaskTitle={setTaskTitle}
-            addTask={addTask}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm} 
-        />
+        <FocusTasks tasks={tasks} setActivePage={setActivePage} />
 
-        <DashboardFilters
-            filter={filter}
-            setFilter={setFilter} 
-        />
-
-        <TaskSection
-            filteredTasks={filteredTasks}
-            toggleTask={toggleTask}
-            deleteTask={deleteTask} 
-        />
         </>
     );
 }

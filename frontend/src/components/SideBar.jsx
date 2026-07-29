@@ -3,13 +3,24 @@ function SideBar( { activePage, setActivePage } ) {
         <aside className="sidebar">
             <h3>Navigation</h3>
             <ul>
-                <li onClick={() => setActivePage("dashboard")}>
+                <li
+                    className={activePage === "dashboard" ? "active" : ""}
+                    onClick={() => setActivePage("dashboard")}
+                >
                     🏠 Dashboard
                 </li>
-                <li onClick={() => setActivePage("tasks")}>
-                    ✅ Tasks
+
+                <li
+                    className={activePage === "tasks" ? "active" : ""}
+                    onClick={() => setActivePage("tasks")}
+                >
+                    📋 Tasks
                 </li>
-                <li onClick={() => setActivePage("settings")}>
+
+                <li
+                    className={activePage === "settings" ? "active" : ""}
+                    onClick={() => setActivePage("settings")}
+                >
                     ⚙️ Settings
                 </li>
             </ul>
