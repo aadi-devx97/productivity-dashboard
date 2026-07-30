@@ -3,72 +3,222 @@
   padding: 0;
 }
 
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.task-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-  padding: 15px;
-  margin-bottom: 10px;
+    padding:18px 20px;
+    margin-bottom:14px;
 
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+
+    transition:.25s;
 }
 
-.dark .task-item {
-  background: #2d2d2d;
-  border-color: #444;
+.task-item:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(0,0,0,.08);
+}
+
+.dark .task-item{
+    background:#2d2d2d;
+    border-color:#444;
+}
+
+.dark .task-item:hover{
+    box-shadow:0 6px 18px rgba(0,0,0,.35);
 }
 
 .task-title {
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
 }
 
-.delete-btn {
-  background: crimson;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+.delete-btn{
+    background:#ef4444;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:8px 16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
 }
 
-.controls {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
+.delete-btn:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
 }
 
-.controls input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.edit-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:8px 16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
 }
 
-.controls button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.edit-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
 }
 
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+.save-btn{
+    background:#16a34a;
+    color:white;
+
+    border:none;
+    border-radius:8px;
+
+    padding:8px 16px;
+
+    font-weight:600;
+    cursor:pointer;
+
+    transition:.25s;
 }
 
-.filters button {
-  padding: 8px 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  background: white;
-  cursor: pointer;
+.save-btn:hover{
+    background:#15803d;
 }
 
-.dark .filters button {
-  background: #2d2d2d;
-  color: white;
-  border-color: #444;
+.cancel-btn{
+    background:#6b7280;
+    color:white;
+
+    border:none;
+    border-radius:8px;
+
+    padding:8px 16px;
+
+    font-weight:600;
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.cancel-btn:hover{
+    background:#4b5563;
+}
+
+.controls{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:25px 0;
+}
+
+.controls input{
+    flex:1;
+    min-width:220px;
+
+    padding:12px 16px;
+
+    border:1px solid #d1d5db;
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+    transition:.2s;
+}
+
+.controls input:focus{
+    border: 1px solid #374151;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.20);
+}
+
+.controls button{
+    padding:12px 18px;
+
+    border:none;
+    border-radius:10px;
+
+    font-weight:600;
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.controls button:hover{
+    transform:translateY(-2px);
+}
+
+.dark .controls input{
+    background:white;
+    color: #111827;
+    border-color:black  ;
+}
+
+.filters{
+    display:flex;
+    gap:12px;
+    margin:20px 0;
+    flex-wrap:wrap;
+}
+
+.filters button{
+    padding:10px 18px;
+
+    border:1px solid #d1d5db;
+    border-radius:999px;
+
+    background:white;
+    color:#374151;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.filters button:hover{
+    background:#f3f4f6;
+    transform:translateY(-2px);
+}
+
+.dark .filters button{
+    background:#2d2d2d;
+    color:#e5e7eb;
+    border-color:#444;
+}
+
+.dark .filters button:hover{
+    background:#3b3b3b;
+}
+
+.edit-input{
+    flex:1;
+
+    padding:10px 14px;
+
+    border:1px solid #d1d5db;
+    border-radius:8px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.2s;
+}
+
+.edit-input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.2);
+}
+
+.dark .edit-input{
+    background:white;
+    color:#111827;
+    border-color:#d1d5db;
 }

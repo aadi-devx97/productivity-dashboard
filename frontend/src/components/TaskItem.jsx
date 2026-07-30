@@ -9,6 +9,7 @@ function TaskItem({ task, toggleTask, deleteTask, editTask }) {
             {
                 isEditing ? (
                     <input
+                        className="edit-input"
                         type="text"
                         value={editText}
                         onChange={(e) => setEditText(e.target.value)}
@@ -26,7 +27,7 @@ function TaskItem({ task, toggleTask, deleteTask, editTask }) {
             {
                 isEditing ? (
                     <>
-                        <button onClick={() => {
+                        <button className="save-btn" onClick={() => {
                             editTask(task._id, editText)
                             setIsEditing(false)
                         }}

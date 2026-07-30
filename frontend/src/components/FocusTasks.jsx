@@ -7,13 +7,13 @@ function FocusTasks({ tasks, setActivePage }) {
     return (
         <div className="card">
             
-            <h3>🎯 Today's Focus</h3>
+            <h2 className="focus-title">🎯 Today's Focus</h2>
 
             {focusTasks.length === 0 ? (
                 <p>🎉 You're all caught up!</p>
             ) : (
                 <>
-                <ul>
+                <ul className="focus-list">
                     {focusTasks.map(task => (
                         <li key={task._id || task.id}>
                             {task.title}

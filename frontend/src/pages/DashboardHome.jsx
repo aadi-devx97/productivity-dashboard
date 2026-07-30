@@ -27,7 +27,7 @@ function DashboardHome({
             <SettingsCard />
         </div>
 
-        <div className="dashboard-grid mission-layout">
+        <div className="mission-row">
             <MissionSection tasks={tasks} />
             <StatsSection tasks={tasks} />
         </div>

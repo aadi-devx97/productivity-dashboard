@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 import { useNavigate } from "react-router-dom"
+import "../styles/settings.css"
 
 
 function SettingsPage({ user, fetchTasks }) {
@@ -28,16 +29,16 @@ function SettingsPage({ user, fetchTasks }) {
         }
     }
     return (
-        <div>
+        <div className="settings-page">
         <h2>Settings</h2>
 
-        <section>
+        <section className="settings-card">
             <h3>⚙️ Settings Page</h3>
             <p>Name: {user?.name}</p>
             <p>Email: {user?.email}</p>
         </section>
 
-        <section>
+        <section className="settings-card">
             <h3>🎨 Theme</h3>
             <p>
                 Current Theme: {darkMode ? "Dark" : "Light"}
@@ -47,21 +48,21 @@ function SettingsPage({ user, fetchTasks }) {
             </button>
         </section>
 
-        <section>
+        <section className="settings-card">
             <h3>🧹 Reset Tasks</h3>
             <button onClick={handleResetTasks}>
                 Reset All Tasks
             </button>
         </section>
 
-        <section>
+        <section className="settings-card">
             <h3>🚪 Logout</h3>
             <button onClick={handleLogout}>
                 Logout
             </button>
         </section>
 
-        <section>
+        <section className="settings-card">
             <h3>🚀 About</h3>
             <p>Productivity Dashboard V2</p>
             <p>Version 2.0.0</p>

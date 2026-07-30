@@ -54,11 +54,40 @@
   background-color: #333;
 }
 
-.card {
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
+.card{
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    transition: .25s ease;
+}
+
+.card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+
+.dark .card{
+    background:#2d2d2d;
+    border-color:#444;
+}
+
+.card h2{
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.card p{
+    color: #6b7280;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.dark .card p{
+    color: #d1d5db;
 }
 
 .dashboard {
@@ -75,9 +104,8 @@
 
 .stats-section {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(1,1fr);
+  gap: 10px;
 }
 
 .stats-card {
@@ -92,10 +120,12 @@
   gap: 15px;
 }
 
-.mission-layout{
+.mission-row {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
+  margin-bottom: 20px;
+  align-items: start;
 }
 
 .dark .stats-card {
@@ -146,16 +176,51 @@
   transform: translateY(-2px);
 }
 
-.view-all-btn {
-    margin-top: 15px;
-    background: none;
-    border: none;
-    color: #111827;
-    font-weight: 600;
-    cursor: pointer;
-    transition: color 0.2s ease;
+.focus-title{
+    margin-bottom:18px;
+    font-size:24px;
+    font-weight:700;
 }
 
-.view-all-btn:hover {
-    color: #4b5563;
+.focus-list{
+    margin-left:22px;
+    margin-bottom:20px;
+}
+
+.focus-list li{
+    margin-bottom:10px;
+    font-size:16px;
+    color:#6b7280;
+}
+
+.dark .focus-list li{
+    color:#d1d5db;
+}
+
+.view-all-btn{
+    font-size:15px;
+    font-weight:600;
+}
+
+.view-all-btn{
+    background:none;
+    border:none;
+    color:#2563eb;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.view-all-btn:hover{
+    color:#1d4ed8;
+    transform:translateX(4px);
+}
+
+.dark .view-all-btn{
+    color:#60a5fa;
+}
+
+.dark .view-all-btn:hover{
+    color:#93c5fd;
 }

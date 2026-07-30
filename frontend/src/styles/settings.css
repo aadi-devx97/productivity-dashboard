@@ -1,0 +1,34 @@
+.settings-page{
+    max-width:900px;
+    margin:0 auto;
+}
+
+.settings-page h2{
+    margin-bottom:24px;
+}
+
+.settings-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+
+    padding:24px;
+
+    margin-bottom:20px;
+
+    transition:.25s;
+}
+
+.settings-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.dark .settings-card{
+    background:#2d2d2d;
+    border-color:#444;
+}
+
+.dark .settings-card:hover{
+    box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
