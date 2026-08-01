@@ -30,12 +30,12 @@ function SettingsPage({ user, fetchTasks }) {
     }
     return (
         <div className="settings-page">
-        <h2>Settings</h2>
+        <h2>⚙ Settings</h2>
 
         <section className="settings-card">
-            <h3>⚙️ Settings Page</h3>
-            <p>Name: {user?.name}</p>
-            <p>Email: {user?.email}</p>
+            <h3>👤 Profile</h3>
+            <p><strong>Name:</strong> {user?.name}</p>
+            <p><strong>Email:</strong> {user?.email}</p>
         </section>
 
         <section className="settings-card">
