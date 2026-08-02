@@ -103,6 +103,7 @@ Clone the repository
 ```bash
 git clone https://github.com/aadi-devx97/productivity-dashboard
 ```
+Get into the project
 
 ```bash
 cd Productivity-dashboard
