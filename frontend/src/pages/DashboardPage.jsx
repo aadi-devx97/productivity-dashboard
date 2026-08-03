@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
-import Sidebar from "../components/Sidebar"
+import SideBar from "../components/SideBar"
 import WelcomeCard from "../components/WelcomeCard"
 import StatsCard from "../components/StatsCard"
 import StatsSection from "../components/StatsSection"
@@ -218,7 +218,7 @@ function DashboardPage() {
             <Header />
 
             <div className="dashboard-layout">
-                <Sidebar activePage={activePage} setActivePage={setActivePage} />
+                <SideBar activePage={activePage} setActivePage={setActivePage} />
 
                 <main className="dashboard-content">
                   {activePage === "dashboard" && (
