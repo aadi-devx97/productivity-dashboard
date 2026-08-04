@@ -8,32 +8,41 @@ function SignupPage() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault()
+        setLoading(true)
 
-        const response = await fetch(`${BASE_URL}/api/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                password,
-            }),
-        })
+        try {
+            const response = await fetch(`${BASE_URL}/api/auth/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password,
+                }),
+            })
 
-        const data = await response.json()
+            const data = await response.json()
 
-        if (!response.ok) {
-            alert(data.message)
-            return
+            if (!response.ok) {
+                alert(data.message)
+                return
+            }
+
+            alert("Signup successful! Please log in.")
+            console.log(data)
+        } catch (error) {
+            console.error(error)
+            alert("An error occurred during signup. Please try again.")
+        } finally {
+            setLoading(false)
         }
-
-        alert("Signup successful! Please log in.")
-        console.log(data)
     }
 
     function goToLogin() {
@@ -67,8 +76,12 @@ function SignupPage() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button className="auth-button" type="submit">
-                    Sign Up
+                <button 
+                    className="auth-button"
+                    type="submit"
+                    disabled={loading}
+                >
+                    {loading ? "Signing up..." : "Sign Up"}
                 </button>
 
                 <p className="auth-text">

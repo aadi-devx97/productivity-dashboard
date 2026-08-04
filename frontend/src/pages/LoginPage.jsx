@@ -7,33 +7,40 @@ import "../styles/auth.css"
 function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault()
+        setLoading(true)
 
-        const response = await fetch(`${BASE_URL}/api/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-        })
+        try {
+            const response = await fetch(`${BASE_URL}/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                }),
+            })
 
-        const data = await response.json()
+            const data = await response.json()
 
-        if (!response.ok) {
-            alert(data.message)
-            return
+            if (!response.ok) {
+                alert(data.message)
+                return
+            }
+
+            localStorage.setItem("token", data.token)
+            navigate("/")
+        } catch (error) {
+            console.error("Error during login:", error)
+            alert("An error occurred during login. Please try again.")
+        } finally {
+            setLoading(false)
         }
-
-        localStorage.setItem("token", data.token)
-
-        console.log(data)
-        navigate("/")
     }
 
     function goToSignup() {
@@ -59,8 +66,8 @@ function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button className="auth-button" type="submit">
-                    Log in
+                <button className="auth-button" type="submit" disabled={loading}>
+                    {loading ? "Logging in..." : "Login"}
                 </button>
 
                 <p>
