@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import type { Task } from "../types/task"
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import WelcomeCard from "../components/WelcomeCard"
@@ -24,7 +25,7 @@ import "../styles/settings.css"
 
 
 function DashboardPage() {
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState<Task[]>([])
 
     const [taskTitle, setTaskTitle] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
@@ -123,8 +124,13 @@ function DashboardPage() {
       setTaskTitle("")
     }
 
-    async function toggleTask(id) {
+    async function toggleTask(id: string) {
       const task = tasks.find((task) => task._id === id)
+      
+      if (!task) {
+        return
+      }
+
       const token = localStorage.getItem("token")
 
       const response = await fetch(
@@ -159,7 +165,7 @@ function DashboardPage() {
       setTasks(updatedTasks)
     }
 
-    async function deleteTask(id) {
+    async function deleteTask(id: string) {
       const token = localStorage.getItem("token")
       const response = await fetch(
         `${BASE_URL}/tasks/${id}`,
@@ -183,7 +189,7 @@ function DashboardPage() {
       setTasks(updatedTasks)
     }
 
-    const editTask = async (taskId, newTitle) => {
+    const editTask = async (taskId: string, newTitle: string) => {
       const token = localStorage.getItem("token")
       try {
         await fetch(`http://localhost:5000/tasks/${taskId}`, {
@@ -229,16 +235,6 @@ function DashboardPage() {
                         tasks={tasks}
                         darkMode={darkMode}
                         setDarkMode={setDarkMode}
-                        taskTitle={taskTitle}
-                        setTaskTitle={setTaskTitle}
-                        addTask={addTask}
-                        searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm}
-                        filter={filter}
-                        setFilter={setFilter}
-                        filteredTasks={filteredTasks}
-                        toggleTask={toggleTask}
-                        deleteTask={deleteTask}
                         setActivePage={setActivePage}
                       />
                     </>
