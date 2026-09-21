@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import type { Task } from "../types/task"
+import type { CurrentUser } from "../types/user"
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import WelcomeCard from "../components/WelcomeCard"
@@ -30,7 +31,7 @@ function DashboardPage() {
     const [taskTitle, setTaskTitle] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
     const [filter, setFilter] = useState("all")
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState<CurrentUser | null>(null)
     const [activePage, setActivePage] = useState("dashboard")
     const { darkMode, setDarkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
@@ -60,7 +61,7 @@ function DashboardPage() {
         },
       })
 
-      const userData = await userResponse.json()
+      const userData: CurrentUser = await userResponse.json()
       setUser(userData)
       console.log(userData)
     }
