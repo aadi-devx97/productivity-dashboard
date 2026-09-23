@@ -4,3 +4,7 @@ export type Task = {
   completed: boolean
   user: string
 }
+
+export type CreateTaskRequest = {
+  title: string
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import type { Task } from "../types/task"
+import type { CreateTaskRequest, Task } from "../types/task"
 import type { CurrentUser } from "../types/user"
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
@@ -98,6 +98,9 @@ function DashboardPage() {
       }
 
       const token = localStorage.getItem("token")
+      const newTaskRequest: CreateTaskRequest = {
+        title: taskTitle
+      }
 
       const response = await fetch(
         `${BASE_URL}/tasks`,
@@ -107,9 +110,7 @@ function DashboardPage() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            title:taskTitle
-          }),
+          body: JSON.stringify(newTaskRequest),
         }
       )
 
@@ -119,7 +120,7 @@ function DashboardPage() {
         return
       }
 
-      const newTask = await response.json()
+      const newTask: Task = await response.json()
 
       setTasks([...tasks, newTask])
       setTaskTitle("")
