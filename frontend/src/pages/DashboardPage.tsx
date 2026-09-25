@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import type { CreateTaskRequest, Task } from "../types/task"
+import type { CreateTaskRequest, Task , EditTaskRequest } from "../types/task"
 import type { CurrentUser } from "../types/user"
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
@@ -52,7 +52,7 @@ function DashboardPage() {
         return
       }
 
-      const data = await response.json()
+      const data: Task[] = await response.json()
       setTasks(data)
 
       const userResponse = await fetch(`${BASE_URL}/api/auth/me`, {
@@ -193,6 +193,9 @@ function DashboardPage() {
 
     const editTask = async (taskId: string, newTitle: string) => {
       const token = localStorage.getItem("token")
+      const editTaskRequest: EditTaskRequest = {
+        title: newTitle
+      }
       try {
         await fetch(`http://localhost:5000/tasks/${taskId}`, {
           method: "PUT",
@@ -202,16 +205,14 @@ function DashboardPage() {
             Authorization: `Bearer ${token}`,
           },
 
-          body: JSON.stringify({
-            title: newTitle,
-          }),
+          body: JSON.stringify(editTaskRequest),
         })
 
         fetchTasks()
 
-    } catch (error) {
-      console.error("Error editing task:", error)
-    }
+      } catch (error) {
+        console.error("Error editing task:", error)
+      }
 
     }
     

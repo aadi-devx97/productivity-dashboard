@@ -8,3 +8,7 @@ export type Task = {
 export type CreateTaskRequest = {
   title: string
 }
+
+export type EditTaskRequest = {
+    title: string
+}
