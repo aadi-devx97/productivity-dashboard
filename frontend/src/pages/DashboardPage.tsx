@@ -1,6 +1,12 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import type { CreateTaskRequest, Task , EditTaskRequest } from "../types/task"
+import type { 
+  CreateTaskRequest, 
+  Task , 
+  EditTaskRequest, 
+  DeleteTaskResponse, 
+  ToggleTaskRequest
+} from "../types/task"
 import type { CurrentUser } from "../types/user"
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
@@ -134,6 +140,9 @@ function DashboardPage() {
       }
 
       const token = localStorage.getItem("token")
+      const toggleTaskRequest: ToggleTaskRequest = {
+        completed: !task.completed
+      }
 
       const response = await fetch(
         `${BASE_URL}/tasks/${id}`,
@@ -144,9 +153,7 @@ function DashboardPage() {
             Authorization: `Bearer ${token}`,
           },
 
-          body: JSON.stringify({
-            completed: !task.completed,
-          }),
+          body: JSON.stringify(toggleTaskRequest),
         }
       )
 
@@ -156,7 +163,7 @@ function DashboardPage() {
         return
       }
 
-      const updatedTask = await response.json()
+      const updatedTask: Task = await response.json()
       const updatedTasks = tasks.map((task) => {
         if (task._id === id) {
           return updatedTask
@@ -184,6 +191,8 @@ function DashboardPage() {
         navigate("/login")
         return
       }
+
+      const data: DeleteTaskResponse = await response.json()
 
       const updatedTasks = tasks.filter(
         (task) => task._id !== id

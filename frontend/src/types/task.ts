@@ -10,5 +10,13 @@ export type CreateTaskRequest = {
 }
 
 export type EditTaskRequest = {
-    title: string
+  title: string
+}
+
+export type DeleteTaskResponse = {
+  message: string
+}
+
+export type ToggleTaskRequest = {
+  completed: boolean
 }
