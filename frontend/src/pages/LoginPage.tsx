@@ -1,6 +1,7 @@
 import BASE_URL from "../config/api"
-import { useState } from "react"
+import { useState, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
+import type { LoginRequest } from "../types/user"
 import "../styles/global.css"
 import "../styles/auth.css"
 
@@ -10,9 +11,13 @@ function LoginPage() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         setLoading(true)
+        const loginRequest: LoginRequest = {
+            email,
+            password,
+        }
 
         try {
             const response = await fetch(`${BASE_URL}/api/auth/login`, {
@@ -20,10 +25,7 @@ function LoginPage() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
+                body: JSON.stringify(loginRequest),
             })
 
             const data = await response.json()
