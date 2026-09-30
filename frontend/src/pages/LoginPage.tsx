@@ -1,7 +1,7 @@
 import BASE_URL from "../config/api"
 import { useState, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import type { LoginRequest } from "../types/user"
+import type { LoginRequest, LoginResponse } from "../types/user"
 import "../styles/global.css"
 import "../styles/auth.css"
 
@@ -28,7 +28,7 @@ function LoginPage() {
                 body: JSON.stringify(loginRequest),
             })
 
-            const data = await response.json()
+            const data: LoginResponse = await response.json()
 
             if (!response.ok) {
                 alert(data.message)
