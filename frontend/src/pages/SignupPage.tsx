@@ -1,6 +1,7 @@
 import BASE_URL from "../config/api"
-import { useState } from "react"
+import { useState, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
+import type { SignupRequest } from "../types/user"
 import "../styles/global.css"
 import "../styles/auth.css"
 
@@ -11,9 +12,14 @@ function SignupPage() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         setLoading(true)
+        const signupRequest: SignupRequest = {
+            name,
+            email,
+            password,
+        }
 
         try {
             const response = await fetch(`${BASE_URL}/api/auth/register`, {
@@ -21,11 +27,7 @@ function SignupPage() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    password,
-                }),
+                body: JSON.stringify(signupRequest),
             })
 
             const data = await response.json()

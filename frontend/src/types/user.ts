@@ -13,3 +13,9 @@ export type LoginResponse = {
   message: string
   token: string
 }
+
+export type SignupRequest = {
+  name: string
+  email: string
+  password: string
+}
