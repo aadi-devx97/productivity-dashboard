@@ -13,7 +13,12 @@ async function registerUser(req, res) {
       password: hashedPassword,
     })
 
-    res.status(201).json(user)
+    res.status(201).json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      message: "User registered successfully",
+    })
   } catch (error) {
     console.error(error)
 

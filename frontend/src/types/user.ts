@@ -19,3 +19,10 @@ export type SignupRequest = {
   email: string
   password: string
 }
+
+export type SignupResponse = {
+  id: string
+  name: string
+  email: string
+  message: string
+}

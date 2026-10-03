@@ -1,7 +1,7 @@
 import BASE_URL from "../config/api"
 import { useState, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import type { SignupRequest } from "../types/user"
+import type { SignupRequest, SignupResponse } from "../types/user"
 import "../styles/global.css"
 import "../styles/auth.css"
 
@@ -30,7 +30,7 @@ function SignupPage() {
                 body: JSON.stringify(signupRequest),
             })
 
-            const data = await response.json()
+            const data: SignupResponse = await response.json()
 
             if (!response.ok) {
                 alert(data.message)
