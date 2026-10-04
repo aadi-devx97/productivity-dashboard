@@ -1,10 +1,16 @@
 import { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 import { useNavigate } from "react-router-dom"
+import type { CurrentUser } from "../types/user"
+import BASE_URL from "../config/api"
 import "../styles/settings.css"
 
+type SettingsPageProps = {
+    user: CurrentUser | null
+    fetchTasks: () => Promise<void>
+}
 
-function SettingsPage({ user, fetchTasks }) {
+function SettingsPage({ user, fetchTasks }: SettingsPageProps) {
     const { darkMode, setDarkMode } = useContext(ThemeContext);
     const navigate = useNavigate();
 
