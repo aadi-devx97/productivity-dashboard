@@ -265,6 +265,8 @@ function DashboardPage() {
                       taskTitle={taskTitle}
                       setTaskTitle={setTaskTitle}
                       addTask={addTask}
+                      darkMode={darkMode}
+                      setDarkMode={setDarkMode}
                     />
                   )}
 

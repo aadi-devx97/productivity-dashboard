@@ -19,6 +19,9 @@ type TasksPageProps = {
 
     filter: string
     setFilter: Dispatch<SetStateAction<string>>
+
+    darkMode: boolean
+    setDarkMode: Dispatch<SetStateAction<boolean>>
 }
 
 function TasksPage({ 
@@ -26,7 +29,8 @@ function TasksPage({
     taskTitle, setTaskTitle, addTask,
     searchTerm, setSearchTerm,
     filter, setFilter,
-    editTask
+    editTask, 
+    darkMode, setDarkMode
 }: TasksPageProps) {
     return (
         <div>
@@ -35,10 +39,12 @@ function TasksPage({
                 taskTitle={taskTitle}
                 setTaskTitle={setTaskTitle}
                 addTask={addTask}
-            />
-            <DashboardFilters 
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
+            />
+            <DashboardFilters 
                 filter={filter}
                 setFilter={setFilter}
             />
