@@ -4,7 +4,7 @@ A modern full-stack productivity dashboard built with the MERN stack.
 
 This project allows users to securely manage their daily tasks through a clean dashboard interface with authentication, personalized task management, dark mode support, and a responsive user experience.
 
-> 🚧 Live Demo: (https://productivity-dashboard-x.netlify.app/)
+>  Live Demo: (https://productivity-dashboard-x.netlify.app/)
 
 ---
 
@@ -106,7 +106,7 @@ git clone https://github.com/aadi-devx97/productivity-dashboard
 Get into the project
 
 ```bash
-cd Productivity-dashboard
+cd productivity-dashboard
 ```
 
 ### Backend
