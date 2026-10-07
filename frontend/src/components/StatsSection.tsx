@@ -1,6 +1,12 @@
+import type { Task } from "../types/task"
+
+type StatsSectionProps = {
+    tasks: Task[]
+}
+
 import StatsCard from "./StatsCard"
 
-function StatsSection({ tasks }) {
+function StatsSection({ tasks } : StatsSectionProps) {
     const totalTasks = tasks.length
 
     const completedTasks = tasks.filter(

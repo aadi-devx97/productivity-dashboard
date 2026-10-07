@@ -1,4 +1,10 @@
-function MissionSection({ tasks }) {
+import type { Task } from "../types/task"
+
+type MissionSectionProps = {
+  tasks: Task[]
+}
+
+function MissionSection({ tasks }: MissionSectionProps) {
   const completedTasks = tasks.filter(
     (task) => task.completed
   )

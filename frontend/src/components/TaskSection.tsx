@@ -1,11 +1,14 @@
 import TaskList from "./TaskList"
+import type { Task } from "../types/task"
 
-function TaskSection({
-    filteredTasks,
-    toggleTask,
-    deleteTask,
-    editTask
-}) {
+type TaskSectionProps = {
+    filteredTasks: Task[]
+    toggleTask: (id: string) => Promise<void>
+    deleteTask: (id: string) => Promise<void>
+    editTask: (taskId: string, newTitle: string) => Promise<void>
+}
+
+function TaskSection({ filteredTasks, toggleTask, deleteTask, editTask }: TaskSectionProps) {
     return (
         <>
         <p>Showing {filteredTasks.length} task(s)</p>

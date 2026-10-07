@@ -1,6 +1,14 @@
 import TaskItem from "./TaskItem"
+import type { Task } from "../types/task"
 
-function TaskList({ tasks, toggleTask, deleteTask, editTask }) {
+type TaskListProps = {
+    tasks: Task[]
+    toggleTask: (id: string) => Promise<void>
+    deleteTask: (id: string) => Promise<void>
+    editTask: (taskId: string, newTitle: string) => Promise<void>
+}
+
+function TaskList({ tasks, toggleTask, deleteTask, editTask }: TaskListProps) {
     return (
         <ul className="task-list">
             {tasks.map((task) => (

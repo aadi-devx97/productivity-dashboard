@@ -1,4 +1,11 @@
-function FocusTasks({ tasks, setActivePage }) {
+import type { Task } from "../types/task"
+
+type FocusTasksProps = {
+    tasks: Task[]
+    setActivePage: (page: string) => void
+}
+
+function FocusTasks({ tasks, setActivePage }: FocusTasksProps) {
 
     const pendingTasks = tasks.filter(task => !task.completed);
 
@@ -15,7 +22,7 @@ function FocusTasks({ tasks, setActivePage }) {
                 <>
                 <ul className="focus-list">
                     {focusTasks.map(task => (
-                        <li key={task._id || task.id}>
+                        <li key={task._id}>
                             {task.title}
                         </li>
                     ))}

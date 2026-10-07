@@ -1,6 +1,14 @@
 import { useState } from "react"
+import type { Task } from "../types/task"
 
-function TaskItem({ task, toggleTask, deleteTask, editTask }) {
+type TaskItemProps = {
+    task: Task
+    toggleTask: (id: string) => Promise<void>
+    deleteTask: (id: string) => Promise<void>
+    editTask: (taskId: string, newTitle: string) => Promise<void>
+}
+
+function TaskItem({ task, toggleTask, deleteTask, editTask }: TaskItemProps) {
     const [isEditing, setIsEditing] = useState(false)
     const [editText, setEditText] = useState(task.title)
 
