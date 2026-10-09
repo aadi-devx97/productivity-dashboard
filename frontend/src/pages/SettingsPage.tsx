@@ -11,7 +11,13 @@ type SettingsPageProps = {
 }
 
 function SettingsPage({ user, fetchTasks }: SettingsPageProps) {
-    const { darkMode, setDarkMode } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext)
+
+    if (theme === null) {
+        throw new Error("ThemeContext is missing its provider")
+    }
+
+    const { darkMode, setDarkMode } = theme
     const navigate = useNavigate();
 
     function handleLogout() {

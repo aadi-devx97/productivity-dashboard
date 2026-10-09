@@ -39,7 +39,13 @@ function DashboardPage() {
     const [filter, setFilter] = useState("all")
     const [user, setUser] = useState<CurrentUser | null>(null)
     const [activePage, setActivePage] = useState("dashboard")
-    const { darkMode, setDarkMode } = useContext(ThemeContext)
+    const theme = useContext(ThemeContext)
+
+    if (theme === null) {
+      throw new Error("ThemeContext is missing its provider")
+    }
+
+    const { darkMode, setDarkMode } = theme
     const navigate = useNavigate()
 
     

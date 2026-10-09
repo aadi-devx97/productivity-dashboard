@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect,
-  type Dispatch, type SetStateAction 
+  type Dispatch, type SetStateAction, type ReactNode 
 } from "react"
 
 type ThemeContextValue = {
@@ -7,9 +7,13 @@ type ThemeContextValue = {
   setDarkMode: Dispatch<SetStateAction<boolean>>
 }
 
-const ThemeContext = createContextb()
+type ThemeProviderProps = {
+  children: ReactNode
+}
 
-export function ThemeProvider({ children }) {
+const ThemeContext = createContext<ThemeContextValue | null>(null)
+
+export function ThemeProvider({ children }: ThemeProviderProps) {
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("darkMode")
 
