@@ -6,14 +6,16 @@ const app = require("../app");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-jest.spyOn(User, "findById");
-
 beforeEach(() => {
-    User.findById.mockResolvedValue({
+    jest.spyOn(User, "findById").mockResolvedValue({
         _id: "test-user-id",
         name: "Test User",
         email: "test@example.com",
     });
+});
+
+afterEach(() => {
+    jest.restoreAllMocks();
 });
 
 describe("GET /api/auth/me", () => {
@@ -124,4 +126,50 @@ test("should return a JWT when login succeeds", async () => {
     );
 
     expect(decoded.userId).toBe("test-user-id");;
+});
+
+test("should register a user and return a safe response", async () => {
+    jest.spyOn(bcrypt, "hash").mockResolvedValueOnce("hashed-password");
+
+    jest.spyOn(User, "create").mockResolvedValueOnce({
+        _id: "new-user-id",
+        name: "New User",
+        email: "new@example.com",
+        password: "hashed-password",
+    });
+
+    const response = await request(app)
+        .post("/api/auth/register")
+        .send({
+            name: "New User",
+            email: "new@example.com",
+            password: "MyPassword123",
+        });
+
+    expect(response.status).toBe(201);
+    expect(response.body.id).toBe("new-user-id");
+    expect(response.body.name).toBe("New User");
+    expect(response.body.email).toBe("new@example.com");
+    expect(response.body.message).toBe("User registered successfully");
+    expect(response.body.password).toBeUndefined();
+});
+
+test("should return 500 when registration fails", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    
+    jest.spyOn(bcrypt, "hash").mockResolvedValueOnce("hashed-password");
+    jest.spyOn(User, "create").mockRejectedValueOnce(
+        new Error("Database failure")
+    );
+
+    const response = await request(app)
+        .post("/api/auth/register")
+        .send({
+            name: "New User",
+            email: "new@example.com",
+            password: "MyPassword123",
+        });
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe("Failed to register user");
 });
