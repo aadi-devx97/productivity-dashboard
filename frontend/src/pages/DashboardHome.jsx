@@ -22,18 +22,17 @@ function DashboardHome({
             user={user}
         />
 
+        <StatsSection tasks={tasks} />
+
+        <div className="dashboard-main-grid">
+            <MissionSection tasks={tasks} />
+            <FocusTasks tasks={tasks} setActivePage={setActivePage} />
+        </div>
+
         <div className="dashboard-grid">
             <CalendarCard />
             <SettingsCard />
-        </div>
-
-        <div className="mission-row">
-            <MissionSection tasks={tasks} />
-            <StatsSection tasks={tasks} />
-        </div>
-
-        <FocusTasks tasks={tasks} setActivePage={setActivePage} />
-
+        </div>    
         </>
     );
 }
