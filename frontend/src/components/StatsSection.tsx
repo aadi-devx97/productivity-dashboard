@@ -18,9 +18,9 @@ function StatsSection({ tasks } : StatsSectionProps) {
     ).length
     return (
         <section className="stats-section">
-            <StatsCard title="Total Tasks" value={totalTasks} />
-            <StatsCard title="Completed" value={completedTasks} />
-            <StatsCard title="Pending" value={pendingTasks} />
+            <StatsCard title="Total tasks" value={totalTasks} icon="☷" tone="neutral" />
+            <StatsCard title="Completed" value={completedTasks} icon="✓" tone="success" />
+            <StatsCard title="To focus on" value={pendingTasks} icon="→" tone="accent" />
         </section>
     )
 }

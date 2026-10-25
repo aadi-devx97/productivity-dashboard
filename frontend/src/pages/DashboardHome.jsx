@@ -1,7 +1,4 @@
-import DashboardControls from "../components/DashboardControls";
-import DashboardFilters from "../components/DashboardFilters";
 import WelcomeCard from "../components/WelcomeCard";
-import TaskSection from "../components/TaskSection";
 import MissionSection from "../components/MissionSection";
 import StatsSection from "../components/StatsSection";
 import CalendarCard from "../components/CalendarCard";
@@ -12,28 +9,36 @@ function DashboardHome({
     pendingTasksCount,
     user,
     tasks,
-    darkMode, setDarkMode,
     setActivePage
 }) {
     return (
-        <>
-        <WelcomeCard
-            pendingTasksCount={pendingTasksCount}
-            user={user}
-        />
+        <div className="dashboard-home">
+            <WelcomeCard
+                pendingTasksCount={pendingTasksCount}
+                user={user}
+            />
 
-        <StatsSection tasks={tasks} />
+            <StatsSection tasks={tasks} />
 
-        <div className="dashboard-main-grid">
-            <MissionSection tasks={tasks} />
-            <FocusTasks tasks={tasks} setActivePage={setActivePage} />
+            <div className="dashboard-workspace">
+                <MissionSection
+                    tasks={tasks}
+                    setActivePage={setActivePage}
+                />
+
+                <aside className="dashboard-rail" aria-label="Daily overview">
+                    <FocusTasks
+                        tasks={tasks}
+                        setActivePage={setActivePage}
+                    />
+
+                    <div className="dashboard-utility-grid">
+                        <CalendarCard />
+                        <SettingsCard />
+                    </div>
+                </aside>
+            </div>
         </div>
-
-        <div className="dashboard-grid">
-            <CalendarCard />
-            <SettingsCard />
-        </div>    
-        </>
     );
 }
 

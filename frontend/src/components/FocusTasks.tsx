@@ -12,17 +12,23 @@ function FocusTasks({ tasks, setActivePage }: FocusTasksProps) {
     const focusTasks = pendingTasks.slice(0, 3);
 
     return (
-        <div className="card">
-            
-            <h2 className="focus-title">🎯 Today's Focus</h2>
+        <section className="card dashboard-card focus-card">
+            <div className="dashboard-card-heading">
+                <div>
+                    <p className="dashboard-eyebrow">Next up</p>
+                    <h2>Today's focus</h2>
+                </div>
+                <span className="focus-count">{focusTasks.length}</span>
+            </div>
 
             {focusTasks.length === 0 ? (
-                <p>🎉 You're all caught up!</p>
+                <p className="focus-empty">Nothing competing for your attention right now.</p>
             ) : (
                 <>
                 <ul className="focus-list">
                     {focusTasks.map(task => (
                         <li key={task._id}>
+                            <span aria-hidden="true">→</span>
                             {task.title}
                         </li>
                     ))}
@@ -36,7 +42,7 @@ function FocusTasks({ tasks, setActivePage }: FocusTasksProps) {
                 </>
             )}
             
-        </div>
+        </section>
     );
 }
 

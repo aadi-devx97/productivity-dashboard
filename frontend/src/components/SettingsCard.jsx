@@ -6,28 +6,20 @@ function SettingsCard() {
     useContext(ThemeContext)
 
   return (
-    <div className="card">
-      <h2>⚙️ Settings</h2>
-
-      <p>
-        Theme:
-        {darkMode
-          ? " Dark Mode"
-          : " Light Mode"}
-      </p>
-
-      <p>
-        Storage:
-        LocalStorage Enabled
-      </p>
-
-      <p>
-        Tasks Saved:
-        {localStorage.getItem("tasks")
-          ? " Yes"
-          : " No"}
-      </p>
-    </div>
+    <section className="card dashboard-card dashboard-utility-card settings-card">
+      <p className="dashboard-eyebrow">Preferences</p>
+      <h2>Workspace settings</h2>
+      <dl className="settings-summary">
+        <div>
+          <dt>Theme</dt>
+          <dd>{darkMode ? "Dark mode" : "Light mode"}</dd>
+        </div>
+        <div>
+          <dt>Storage</dt>
+          <dd>{localStorage.getItem("tasks") ? "Tasks saved" : "Ready to save tasks"}</dd>
+        </div>
+      </dl>
+    </section>
   )
 }
 

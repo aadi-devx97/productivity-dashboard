@@ -16,13 +16,11 @@ function CalendarCard() {
   )
 
   return (
-    <div className="card">
-      <h2>📅 Calendar</h2>
-
-      <h3>{day}</h3>
-
+    <section className="card dashboard-card dashboard-utility-card calendar-card">
+      <p className="dashboard-eyebrow">Calendar</p>
+      <h2>{day}</h2>
       <p>{date}</p>
-    </div>
+    </section>
   )
 }
 
