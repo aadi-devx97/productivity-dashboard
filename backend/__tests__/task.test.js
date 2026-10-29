@@ -5,14 +5,9 @@ const app = require("../app");
 const jwt = require("jsonwebtoken");
 const Task = require("../models/Task");
 
-jest.spyOn(Task, "find").mockResolvedValue([
-    {
-        _id: "task-1",
-        title: "Learn automated testing",
-        completed: false,
-        user: "test-user-id",
-    },
-]);
+afterEach(() => {
+    jest.restoreAllMocks();
+});
 
 test("should return 401 when fetching tasks without a token", async () => {
     const response = await request(app).get("/tasks");
@@ -27,6 +22,15 @@ test("should return the user's tasks when a valid token is provided", async () =
         process.env.JWT_SECRET
     );
 
+    jest.spyOn(Task, "find").mockResolvedValueOnce([
+    {
+        _id: "task-1",
+        title: "Learn automated testing",
+        completed: false,
+        user: "test-user-id",
+    },
+]);
+
     const response = await request(app)
         .get("/tasks")
         .set("Authorization", `Bearer ${token}`);
@@ -37,25 +41,6 @@ test("should return the user's tasks when a valid token is provided", async () =
     expect(Task.find).toHaveBeenCalledWith({
         user: "test-user-id",
     });
-});
-
-test("should return 500 when fetching tasks fails", async () => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
-    jest.spyOn(Task, "find").mockRejectedValueOnce(
-        new Error("Database failure")
-    );
-
-    const token = jwt.sign(
-        { userId: "test-user-id" },
-        process.env.JWT_SECRET
-    );
-
-    const response = await request(app)
-        .get("/tasks")
-        .set("Authorization", `Bearer ${token}`);
-
-    expect(response.status).toBe(500);
-    expect(response.body.message).toBe("Failed to fetch tasks");
 });
 
 test("should return 500 when fetching tasks fails", async () => {
@@ -186,7 +171,6 @@ test("should return 404 when task to update is not found", async () => {
     expect(response.body.message).toBe("Task not found");
 });
 
-
 test("should delete a task successfully", async () => {
     const deletedTask = {
         _id: "task-123",
@@ -215,8 +199,6 @@ test("should delete a task successfully", async () => {
     });
 });
 
-
-
 test("should return 404 when task to delete is not found", async () => {
     jest.spyOn(Task, "findOneAndDelete").mockResolvedValueOnce(null);
 
@@ -232,7 +214,6 @@ test("should return 404 when task to delete is not found", async () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toBe("Task not found");
 });
-
 
 test("should return 500 when task deletion fails", async () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
@@ -253,7 +234,6 @@ test("should return 500 when task deletion fails", async () => {
     expect(response.status).toBe(500);
     expect(response.body.message).toBe("Failed to delete task");
 });
-
 
 test("should reset all tasks successfully", async () => {
     jest.spyOn(Task, "deleteMany").mockResolvedValueOnce({
@@ -277,7 +257,6 @@ test("should reset all tasks successfully", async () => {
     });
 });
 
-
 test("should return 500 when resetting tasks fails", async () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
 
@@ -297,7 +276,6 @@ test("should return 500 when resetting tasks fails", async () => {
     expect(response.status).toBe(500);
     expect(response.body.message).toBe("Failed to reset tasks");
 });
-
 
 test("should return 500 when task update fails", async () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
@@ -320,4 +298,66 @@ test("should return 500 when task update fails", async () => {
 
     expect(response.status).toBe(500);
     expect(response.body.message).toBe("Failed to update task");
+});
+
+test("should return 500 when task creation fails validation", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+
+    jest.spyOn(Task, "create").mockRejectedValueOnce(
+        new Error("Title is required")
+    );
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .post("/tasks")
+        .set("Authorization", `Bearer ${token}`)
+        .send({});
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe("Failed to create task");
+});
+
+test("should reject task creation without an authentication token", async () => {
+    const response = await request(app)
+        .post("/tasks")
+        .send({
+            title: "Unauthorized task",
+        });
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe("No token provided");
+});
+
+test("should not update a task belonging to another user", async () => {
+    jest.spyOn(Task, "findOneAndUpdate").mockResolvedValueOnce(null);
+
+    const token = jwt.sign(
+        { userId: "user-A" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .put("/tasks/task-owned-by-user-B")
+        .set("Authorization", `Bearer ${token}`)
+        .send({
+            title: "Attempted unauthorized update",
+        });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Task not found");
+
+    expect(Task.findOneAndUpdate).toHaveBeenCalledWith(
+        {
+            _id: "task-owned-by-user-B",
+            user: "user-A",
+        },
+        {
+            title: "Attempted unauthorized update",
+        },
+        { new: true }
+    );
 });
