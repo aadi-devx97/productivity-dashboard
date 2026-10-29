@@ -185,3 +185,139 @@ test("should return 404 when task to update is not found", async () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toBe("Task not found");
 });
+
+
+test("should delete a task successfully", async () => {
+    const deletedTask = {
+        _id: "task-123",
+        title: "Completed task",
+        completed: true,
+        user: "test-user-id",
+    };
+
+    jest.spyOn(Task, "findOneAndDelete").mockResolvedValueOnce(deletedTask);
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .delete("/tasks/task-123")
+        .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Task deleted successfully");
+
+    expect(Task.findOneAndDelete).toHaveBeenCalledWith({
+        _id: "task-123",
+        user: "test-user-id",
+    });
+});
+
+
+
+test("should return 404 when task to delete is not found", async () => {
+    jest.spyOn(Task, "findOneAndDelete").mockResolvedValueOnce(null);
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .delete("/tasks/nonexistent-task")
+        .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Task not found");
+});
+
+
+test("should return 500 when task deletion fails", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+
+    jest.spyOn(Task, "findOneAndDelete").mockRejectedValueOnce(
+        new Error("Database failure")
+    );
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .delete("/tasks/task-123")
+        .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe("Failed to delete task");
+});
+
+
+test("should reset all tasks successfully", async () => {
+    jest.spyOn(Task, "deleteMany").mockResolvedValueOnce({
+        deletedCount: 3,
+    });
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .delete("/tasks/reset")
+        .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("All tasks reset successfully");
+
+    expect(Task.deleteMany).toHaveBeenCalledWith({
+        user: "test-user-id",
+    });
+});
+
+
+test("should return 500 when resetting tasks fails", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+
+    jest.spyOn(Task, "deleteMany").mockRejectedValueOnce(
+        new Error("Database failure")
+    );
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .delete("/tasks/reset")
+        .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe("Failed to reset tasks");
+});
+
+
+test("should return 500 when task update fails", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+
+    jest.spyOn(Task, "findOneAndUpdate").mockRejectedValueOnce(
+        new Error("Database failure")
+    );
+
+    const token = jwt.sign(
+        { userId: "test-user-id" },
+        process.env.JWT_SECRET
+    );
+
+    const response = await request(app)
+        .put("/tasks/task-123")
+        .set("Authorization", `Bearer ${token}`)
+        .send({
+            title: "Updated task",
+        });
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe("Failed to update task");
+});
